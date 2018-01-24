@@ -1,6 +1,5 @@
-resource "aws_security_group" "elb" {
-  name = "terraform-example-elb"
-
+resource "aws_security_group" "tfur-stage-web-elb-sg" {
+  name = "tfur-stage-web-elb-sg"
   ingress {
     from_port   = 80
     to_port     = 80
@@ -16,12 +15,11 @@ resource "aws_security_group" "elb" {
   }
 }
 
-resource "aws_security_group" "instance" {
-  name = "terraform-example-instance"
-
+resource "aws_security_group" "tfur-stage-web-sg" {
+  name = "tfur-stage-web-sg"
   ingress {
-    from_port   = "${var.server_port}"
-    to_port     = "${var.server_port}"
+    from_port   = "${var.web-port}"
+    to_port     = "${var.web-port}"
     protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
   }

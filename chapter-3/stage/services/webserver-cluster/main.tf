@@ -5,25 +5,26 @@ provider "aws" {
 
 terraform {
   backend "s3" {
-    bucket         = "terraform-states-263131279478"
+    bucket         = "terraform-states-969834822063"
     key            = "stage/terraform.tfstate"
     region         = "us-west-2"
     encrypt        = true
-    dynamodb_table = "terraform_state_locks"
+    dynamodb_table = "terraform-state-locks"
   }
 }
 
-resource "aws_autoscaling_group" "cluster" {
-  launch_configuration = "${aws_launch_configuration.instance.id}"
+resource "aws_autoscaling_group" "tfur-stage-web-asg" {
+  name                 = "tfur-stage-web-asg"
+  launch_configuration = "${aws_launch_configuration.tfur-stage-web-lc.id}"
   availability_zones   = ["${data.aws_availability_zones.all.names}"]
-  load_balancers       = ["${aws_elb.elb.name}"]
+  load_balancers       = ["${aws_elb.tfur-stage-web-elb.name}"]
   health_check_type    = "ELB"
   min_size             = 1
   max_size             = 3
 
   tag {
     key                 = "Name"
-    value               = "terraform-asg-example"
+    value               = "tfur-stage-web-asg"
     propagate_at_launch = true
   }
 }
