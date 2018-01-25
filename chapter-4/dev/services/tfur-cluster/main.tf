@@ -1,7 +1,7 @@
 terraform {
   backend "s3" {
     bucket         = "terraform-states-969834822063"
-    key            = "stage/terraform.tfstate"
+    key            = "dev/terraform.tfstate"
     region         = "us-west-2"
     encrypt        = true
     dynamodb_table = "terraform-state-locks"
@@ -15,5 +15,5 @@ provider "aws" {
 
 module "tfur-cluster" {
   source = "../../../modules/tfur-cluster"
-  env    = "stage"
+  env    = "dev"
 }

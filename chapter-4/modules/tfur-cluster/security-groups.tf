@@ -1,5 +1,6 @@
 resource "aws_security_group" "tfur-web-elb-sg" {
   name = "tfur-${var.env}-web-elb-sg"
+
   ingress {
     from_port   = 80
     to_port     = 80
@@ -17,6 +18,7 @@ resource "aws_security_group" "tfur-web-elb-sg" {
 
 resource "aws_security_group" "tfur-web-sg" {
   name = "tfur-${var.env}-web-sg"
+
   ingress {
     from_port   = "${var.web-port}"
     to_port     = "${var.web-port}"
