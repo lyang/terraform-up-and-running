@@ -1,5 +1,5 @@
 resource "aws_launch_configuration" "tfur-web-lc" {
-  name            = "tfur-${var.env}-web-lc"
+  name_prefix     = "tfur-${var.env}-web-lc-"
   image_id        = "${data.aws_ami.ubuntu.id}"
   instance_type   = "t2.micro"
   security_groups = ["${aws_security_group.tfur-web-sg.id}"]
