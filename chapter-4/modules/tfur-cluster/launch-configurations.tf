@@ -4,11 +4,7 @@ resource "aws_launch_configuration" "tfur-web-lc" {
   instance_type   = "t2.micro"
   security_groups = ["${aws_security_group.tfur-web-sg.id}"]
 
-  user_data = <<-EOF
-              #!/bin/bash
-              echo "Hello, ${var.env}" > index.html
-              nohup busybox httpd -f -p "${var.web-port}" &
-              EOF
+  user_data = "${data.template_file.user_data.rendered}"
 
   lifecycle {
     create_before_destroy = true

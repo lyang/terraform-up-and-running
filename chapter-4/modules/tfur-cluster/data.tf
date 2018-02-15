@@ -24,3 +24,12 @@ data "aws_ami" "ubuntu" {
     values = ["ubuntu/images/hvm-ssd/ubuntu-xenial-16.04-amd64-server-2018*"]
   }
 }
+
+data "template_file" "user_data" {
+  template = "${file("${path.module}/user-data.sh")}"
+
+  vars {
+    web-port = "${var.web-port}"
+    env         = "${var.env}"
+  }
+}
